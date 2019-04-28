@@ -9,7 +9,11 @@ pipeline {
             }
         }
         stage('Build image') {
-          app = docker.build("java-test/rest")
+          steps {
+            sh 'docker build -t java-test/rest .'
+            sh 'docker tag java-test/rest 192.168.1.5:5000/java-test/rest'
+            sh 'docker push 192.168.1.5:5000/java-test/rest'
+          }
         }
 
     }
