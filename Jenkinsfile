@@ -8,5 +8,9 @@ pipeline {
                 sh 'ls -lah'
             }
         }
+        stage('Build image') {
+          app = docker.build("java-test/rest")
+        }
+
     }
 }
