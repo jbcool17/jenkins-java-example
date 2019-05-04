@@ -8,27 +8,28 @@ volumes: [
 ]
 ) {
   node('build-pod') {
-  stage('Clone repository') {
-          container('git') {
-              sh 'whoami'
-              sh 'hostname -i'
-              sh 'git clone -b master https://github.com/jbcool17/jenkins-java-example.git'
-          }
+    stage('Clone repository') {
+            container('git') {
+                sh 'whoami'
+                sh 'hostname -i'
+                sh 'git clone -b master https://github.com/jbcool17/jenkins-java-example.git'
+            }
+      }
       stage('Maven Build') {
           container('maven') {
-          dir('jenkins-java-example') {
-            sh 'mvn --version'
-            sh 'mvn clean package'
-            sh 'ls -lah'
+            dir('jenkins-java-example/') {
+              sh 'mvn --version'
+              sh 'mvn clean package'
+              sh 'ls -lah'
             }
           }
       }
       stage('Check running containers') {
           container('docker') {
-          dir('jenkins-java-example') {
-            sh 'docker build -t java-test/rest .'
-            sh 'docker tag java-test/rest 192.168.1.5:5000/java-test/rest'
-            sh 'docker push 192.168.1.5:5000/java-test/rest'
+            dir('jenkins-java-example/') {
+              sh 'docker build -t java-test/rest .'
+              sh 'docker tag java-test/rest 192.168.1.5:5000/java-test/rest'
+              sh 'docker push 192.168.1.5:5000/java-test/rest'
             }
           }
       }
