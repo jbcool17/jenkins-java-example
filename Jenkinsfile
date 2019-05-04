@@ -2,11 +2,12 @@ pipeline {
     agent any
     stages {
         stage('build') {
-            steps {
-                sh 'mvn --version'
-                sh 'mvn clean package'
-                sh 'ls -lah'
-            }
+          container('maven'){
+            sh 'mvn --version'
+            sh 'mvn clean package'
+            sh 'ls -lah'
+          }
+
         }
         stage('Build image') {
           steps {
