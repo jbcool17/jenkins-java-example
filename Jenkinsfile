@@ -7,7 +7,7 @@ volumes: [
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
 ]
 ) {
-  node('mypod') {
+  node('build-pod') {
       stage('Maven Build') {
           container('maven') {
             sh 'mvn --version'
