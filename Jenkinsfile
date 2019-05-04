@@ -1,8 +1,8 @@
 pipeline {
-    agent { docker { image 'maven:3.3.3' } }
+    agent any
     stages {
         stage('build') {
-            steps {
+            container('maven') {
                 sh 'mvn --version'
                 sh 'mvn clean package'
                 sh 'ls -lah'
