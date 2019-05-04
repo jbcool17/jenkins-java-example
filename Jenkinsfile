@@ -1,4 +1,4 @@
-podTemplate(label: 'build-pod', containers: [
+podTemplate(label: 'mvn-build-pod', containers: [
   containerTemplate(name: 'git', image: 'alpine/git', ttyEnabled: true, command: 'cat'),
   containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true)
@@ -7,7 +7,7 @@ volumes: [
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
 ]
 ) {
-  node('build-pod') {
+  node('mvn-build-pod') {
     stage('Clone repository') {
             container('git') {
                 sh 'whoami'
@@ -29,7 +29,6 @@ volumes: [
             dir('jenkins-java-example/') {
               sh 'docker build -t java-test:v1 .'
               sh 'docker tag java-test:v1 jbcool17/java-test:v1'
-              sh 'docker push jbcool17/java-test:v1'
             }
           }
       }
