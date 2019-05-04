@@ -27,8 +27,8 @@ volumes: [
       stage('Check running containers') {
           container('docker') {
             dir('jenkins-java-example/') {
-              sh 'docker build -t java-test/rest .'
-              sh 'docker tag java-test/rest jbcool17/java-test:v1'
+              sh 'docker build -t java-test:v1 .'
+              sh 'docker tag java-test:v1 jbcool17/java-test:v1'
               sh 'docker push jbcool17/java-test:v1'
             }
           }
