@@ -28,8 +28,8 @@ volumes: [
           container('docker') {
             dir('jenkins-java-example/') {
               sh 'docker build -t java-test/rest .'
-              sh 'docker tag java-test/rest 192.168.1.5:5000/java-test/rest'
-              sh 'docker push 192.168.1.5:5000/java-test/rest'
+              sh 'docker tag java-test/rest jbcool17/java-test/rest'
+              sh 'docker push jbcool17/java-test:v1'
             }
           }
       }
